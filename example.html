@@ -1,0 +1,65 @@
+<html>
+<head>
+	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+	<script src="dataTables.rowsGroup.js"></script>
+</head>
+<body>
+	<table id="example" class="display"></table>
+<script>
+$(function(){
+	var data = [
+		['subgroupN', 'Group1', 'sub-subgroupN', 'ElementN', '2Element N'],
+		['subgroup1', 'Group2', 'sub-subgroup1', 'Element1', '2Element 1'],
+		['subgroup2', 'Group2', 'sub-subgroup1', 'Element1', '2Element 1'],
+		['subgroup2', 'Group2', 'sub-subgroup1', 'Element2', '2Element 2'],
+		['subgroup2', 'Group2', 'sub-subgroup2', 'Element3', '2Element 2'],
+		['subgroup2', 'Group2', 'sub-subgroup2', 'Element4', '2Element 4'],
+		['subgroup2', 'Group2', 'sub-subgroup2', 'Element2', '2Element 2'],
+		['subgroup3', 'Group1', 'sub-subgroup1', 'Element1', '2Element 1'],
+		['subgroup3', 'Group1', 'sub-subgroup1', 'Element1', '2Element 1'],
+		['subgroup2', 'Group2', 'sub-subgroup2', 'Element1', '2Element 1'],
+		['subgroup4', 'Group2', 'sub-subgroup2', 'Element1', '2Element 1'],
+		['subgroup4', 'Group2', 'sub-subgroup3', 'Element10', '2Element 17'],
+		['subgroup4', 'Group2', 'sub-subgroup3', 'Element231', '2Element 211'],
+		
+	]
+	var table = $('#example').DataTable({
+		columns: [
+			{
+				title: 'First group',
+			},
+			{
+				name: 'second',
+				title: 'Second group [order first]',
+			},
+			{
+				title: 'Third group',
+			},
+			{
+				title: 'Forth ungrouped',
+			},
+			{
+				title: 'Fifth ungrouped',
+			},
+		],
+		data: data,
+		lengthChange: false,
+		searching: true,
+		paging: false,
+		order: [],
+		rowsGroup: [// Always the array (!) of the column-selectors in specified order to which rows groupping is applied
+					// (column-selector could be any of specified in https://datatables.net/reference/type/column-selector)
+			'second:name',
+			0,
+			2
+		],
+	})
+	table.draw(false)
+});
+
+</script>
+</body>
+</html>
