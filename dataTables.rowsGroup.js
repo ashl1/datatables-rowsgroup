@@ -80,6 +80,10 @@ var RowsGroup = function ( dt, columnsForGrouping )
 	dt.on('column-visibility.dt', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
+	
+	dt.on('page.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
 
 	this._updateOrderAndDraw();
 	
