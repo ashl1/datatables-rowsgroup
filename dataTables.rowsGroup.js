@@ -1,11 +1,12 @@
-/*! RowsGroup for DataTables v1.0.1
- * 2015 Alexey Shildyakov ashl1future@gmail.com
+/*! RowsGroup for DataTables v1.0.3
+ * 2015-2016 Alexey Shildyakov ashl1future@gmail.com
+ * 2016 Tibor Wekerle
  */
 
 /**
  * @summary     RowsGroup
  * @description Group rows by specified columns
- * @version     1.0.1
+ * @version     1.0.3
  * @file        dataTables.rowsGroup.js
  * @author      Alexey Shildyakov (ashl1future@gmail.com)
  * @contact     ashl1future@gmail.com
@@ -78,6 +79,14 @@ var RowsGroup = function ( dt, columnsForGrouping )
 	})
 	
 	dt.on('column-visibility.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
+
+	dt.on('page.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
+
+	dt.on('length.dt', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
