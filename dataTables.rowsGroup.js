@@ -84,6 +84,10 @@ var RowsGroup = function ( dt, columnsForGrouping )
 	dt.on('page.dt', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
+	
+	dt.on('length.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
 
 	this._updateOrderAndDraw();
 	
