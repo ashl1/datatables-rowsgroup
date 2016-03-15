@@ -1,5 +1,6 @@
 /*! RowsGroup for DataTables v2.0.0
  * 2015-2016 Alexey Shildyakov ashl1future@gmail.com
+ * 2016 Tibor Wekerle
  */
 
 /**
@@ -84,6 +85,18 @@ var RowsGroup = function ( dt, columnsForGrouping )
 	dt.on('search.dt', function ( e, settings) {
 		// This might to increase the time to redraw while searching on tables
 		//   with huge shown columns
+		self.mergeCellsNeeded = true;
+	})
+
+	dt.on('page.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
+
+	dt.on('length.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
+
+	dt.on('xhr.dt', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
