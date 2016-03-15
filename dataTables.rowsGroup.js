@@ -81,6 +81,12 @@ var RowsGroup = function ( dt, columnsForGrouping )
 		self.mergeCellsNeeded = true;
 	})
 
+	dt.on('search.dt', function ( e, settings) {
+		// This might to increase the time to redraw while searching on tables
+		//   with huge shown columns
+		self.mergeCellsNeeded = true;
+	})
+
 	this._updateOrderAndDraw();
 	
 /* Events sequence while Add row (also through Editor)
