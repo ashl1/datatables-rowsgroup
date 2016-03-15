@@ -1,11 +1,11 @@
-/*! RowsGroup for DataTables v1.0.1
- * 2015 Alexey Shildyakov ashl1future@gmail.com
+/*! RowsGroup for DataTables v2.0.0
+ * 2015-2016 Alexey Shildyakov ashl1future@gmail.com
  */
 
 /**
  * @summary     RowsGroup
  * @description Group rows by specified columns
- * @version     1.0.1
+ * @version     2.0.0
  * @file        dataTables.rowsGroup.js
  * @author      Alexey Shildyakov (ashl1future@gmail.com)
  * @contact     ashl1future@gmail.com
@@ -106,6 +106,16 @@ var RowsGroup = function ( dt, columnsForGrouping )
 
 
 RowsGroup.prototype = {
+	setMergeCells: function(){
+		this.mergeCellsNeeded = true;
+	},
+
+	mergeCells: function()
+	{
+		this.setMergeCells();
+		this.table.draw();
+	},
+
 	_getOrderWithGroupColumns: function (order, groupedColumnsOrderDir)
 	{
 		if (groupedColumnsOrderDir === undefined)
@@ -224,14 +234,22 @@ $(document).on( 'init.dt', function ( e, settings ) {
 	}
 
 	var api = new $.fn.dataTable.Api( settings );
-
+	
 	if ( settings.oInit.rowsGroup ||
 		 $.fn.dataTable.defaults.rowsGroup )
 	{
 		options = settings.oInit.rowsGroup?
 			settings.oInit.rowsGroup:
 			$.fn.dataTable.defaults.rowsGroup;
-		new RowsGroup( api, options );
+		var rowsGroup = new RowsGroup( api, options );
+		$.fn.dataTable.Api.register( 'rowsgroup.update()', function () {
+			rowsGroup.mergeCells();
+			return this;
+		} );
+		$.fn.dataTable.Api.register( 'rowsgroup.updateNextDraw()', function () {
+			rowsGroup.setMergeCells();
+			return this;
+		} );
 	}
 } );
 

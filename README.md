@@ -48,5 +48,26 @@ var table = $('#example').DataTable({
 })
 ```
 
+Also supports manual remerge cells (if you manually deleted showed row, you should execute the method):
+```
+var table = $('#example').DataTable({...})
+table.rowsgroup.update();
+```
+
+Or you can just set it to be remerged on next redraw (you might stack several times it and then call ```draw()```), and the ```update()``` procedure will be called once:
+```
+var table = $('#example').DataTable({...})
+table.rowsgroup.updateNextDraw();
+...
+table.rowsgroup.updateNextDraw();
+...
+while (...) {
+	...
+	table.rowsgroup.updateNextDraw();
+	...
+}
+table.draw();
+```
+
 # License
 MIT License
