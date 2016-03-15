@@ -1,4 +1,4 @@
-/*! RowsGroup for DataTables v1.0.3
+/*! RowsGroup for DataTables v2.0.0
  * 2015-2016 Alexey Shildyakov ashl1future@gmail.com
  * 2016 Tibor Wekerle
  */
@@ -6,7 +6,7 @@
 /**
  * @summary     RowsGroup
  * @description Group rows by specified columns
- * @version     1.0.3
+ * @version     2.0.0
  * @file        dataTables.rowsGroup.js
  * @author      Alexey Shildyakov (ashl1future@gmail.com)
  * @contact     ashl1future@gmail.com
@@ -82,6 +82,12 @@ var RowsGroup = function ( dt, columnsForGrouping )
 		self.mergeCellsNeeded = true;
 	})
 
+	dt.on('search.dt', function ( e, settings) {
+		// This might to increase the time to redraw while searching on tables
+		//   with huge shown columns
+		self.mergeCellsNeeded = true;
+	})
+
 	dt.on('page.dt', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
@@ -113,6 +119,16 @@ var RowsGroup = function ( dt, columnsForGrouping )
 
 
 RowsGroup.prototype = {
+	setMergeCells: function(){
+		this.mergeCellsNeeded = true;
+	},
+
+	mergeCells: function()
+	{
+		this.setMergeCells();
+		this.table.draw();
+	},
+
 	_getOrderWithGroupColumns: function (order, groupedColumnsOrderDir)
 	{
 		if (groupedColumnsOrderDir === undefined)
@@ -231,14 +247,22 @@ $(document).on( 'init.dt', function ( e, settings ) {
 	}
 
 	var api = new $.fn.dataTable.Api( settings );
-
+	
 	if ( settings.oInit.rowsGroup ||
 		 $.fn.dataTable.defaults.rowsGroup )
 	{
 		options = settings.oInit.rowsGroup?
 			settings.oInit.rowsGroup:
 			$.fn.dataTable.defaults.rowsGroup;
-		new RowsGroup( api, options );
+		var rowsGroup = new RowsGroup( api, options );
+		$.fn.dataTable.Api.register( 'rowsgroup.update()', function () {
+			rowsGroup.mergeCells();
+			return this;
+		} );
+		$.fn.dataTable.Api.register( 'rowsgroup.updateNextDraw()', function () {
+			rowsGroup.setMergeCells();
+			return this;
+		} );
 	}
 } );
 
