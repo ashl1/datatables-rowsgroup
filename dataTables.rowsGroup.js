@@ -81,6 +81,14 @@ var RowsGroup = function ( dt, columnsForGrouping )
 	dt.on('column-visibility.dt', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
+	
+	dt.on('page.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
+	
+	dt.on('length.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
 
 	dt.on('search.dt', function ( e, settings) {
 		// This might to increase the time to redraw while searching on tables
