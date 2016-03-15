@@ -90,6 +90,10 @@ var RowsGroup = function ( dt, columnsForGrouping )
 		self.mergeCellsNeeded = true;
 	})
 
+	dt.on('xhr.dt', function ( e, settings) {
+		self.mergeCellsNeeded = true;
+	})
+
 	this._updateOrderAndDraw();
 	
 /* Events sequence while Add row (also through Editor)
