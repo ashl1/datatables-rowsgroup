@@ -1,0 +1,8 @@
+{
+  "name": "datatables-rowsgroup",
+  "version": "1.0.0",
+  "description": "The Datatables feature plugin that groups rows (merge cells vertically) in according to specified columns",
+  "main": "dataTables.rowsGroup.js",
+  "repository": "git@github.com:futpib/datatables-rowsgroup.git",
+  "license": "MIT"
+}
