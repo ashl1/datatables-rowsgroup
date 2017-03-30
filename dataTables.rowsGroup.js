@@ -92,7 +92,7 @@ var RowsGroup = function ( dt, columnsForGrouping )
 	this.order = []
 	
 	var self = this;
-	dt.on('order.dt', function ( e, settings) {
+	dt.on('order.dt.rowsGroup', function ( e, settings) {
 		if (!self.orderOverrideNow) {
 			self.orderOverrideNow = true;
 			self._updateOrderAndDraw()
@@ -101,33 +101,37 @@ var RowsGroup = function ( dt, columnsForGrouping )
 		}
 	})
 	
-	dt.on('preDraw.dt', function ( e, settings) {
+	dt.on('preDraw.dt.rowsGroup', function ( e, settings) {
 		if (self.mergeCellsNeeded) {
 			self.mergeCellsNeeded = false;
 			self._mergeCells()
 		}
 	})
 	
-	dt.on('column-visibility.dt', function ( e, settings) {
+	dt.on('column-visibility.dt.rowsGroup', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('search.dt', function ( e, settings) {
+	dt.on('search.dt.rowsGroup', function ( e, settings) {
 		// This might to increase the time to redraw while searching on tables
 		//   with huge shown columns
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('page.dt', function ( e, settings) {
+	dt.on('page.dt.rowsGroup', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('length.dt', function ( e, settings) {
+	dt.on('length.dt.rowsGroup', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('xhr.dt', function ( e, settings) {
+	dt.on('xhr.dt.rowsGroup', function ( e, settings) {
 		self.mergeCellsNeeded = true;
+	})
+
+	dt.on('destroy.dt.rowsGroup', function ( e ) {
+		dt.off('.rowsGroup');
 	})
 
 	this._updateOrderAndDraw();
@@ -271,7 +275,7 @@ $.fn.dataTable.RowsGroup = RowsGroup;
 $.fn.DataTable.RowsGroup = RowsGroup;
 
 // Automatic initialisation listener
-$(document).on( 'init.dt', function ( e, settings ) {
+$(document).on( 'init.dt.rowsGroup', function ( e, settings ) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
