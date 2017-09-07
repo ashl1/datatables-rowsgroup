@@ -266,7 +266,11 @@ $(document).on( 'init.dt', function ( e, settings ) {
 	}
 } );
 
-}(jQuery));
+}(
+    (typeof require === 'function')
+        ? require('jQuery')
+        : window.jQuery,
+));
 
 /*
 
