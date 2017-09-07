@@ -237,8 +237,8 @@ RowsGroup.prototype = {
 };
 
 
-$.fn.dataTable.RowsGroup = RowsGroup;
-$.fn.DataTable.RowsGroup = RowsGroup;
+if ($.fn.dataTable) $.fn.dataTable.RowsGroup = RowsGroup;
+if ($.fn.DataTable) $.fn.DataTable.RowsGroup = RowsGroup;
 
 // Automatic initialisation listener
 $(document).on( 'init.dt', function ( e, settings ) {
