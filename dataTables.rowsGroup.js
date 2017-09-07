@@ -68,7 +68,7 @@ class RowsGroup {
         this.mergeCellsNeeded = false; // merge after init
         this.order = [];
         
-        dt.on('order.dt', () => {
+        dt.on('order.dt.rowsGroup', () => {
             if (!this.orderOverrideNow) {
                 this.orderOverrideNow = true;
                 this._updateOrderAndDraw();
@@ -77,32 +77,32 @@ class RowsGroup {
             }
         });
         
-        dt.on('preDraw.dt', () => {
+        dt.on('preDraw.dt.rowsGroup', () => {
             if (this.mergeCellsNeeded) {
                 this.mergeCellsNeeded = false;
                 this._mergeCells();
             }
         });
         
-        dt.on('column-visibility.dt', () => {
+        dt.on('column-visibility.dt.rowsGroup', () => {
             this.mergeCellsNeeded = true;
         });
 
-        dt.on('search.dt', () => {
+        dt.on('search.dt.rowsGroup', () => {
             // This might to increase the time to redraw while searching on tables
             //   with huge shown columns
             this.mergeCellsNeeded = true;
         });
 
-        dt.on('page.dt', () => {
+        dt.on('page.dt.rowsGroup', () => {
             this.mergeCellsNeeded = true;
         });
 
-        dt.on('length.dt', () => {
+        dt.on('length.dt.rowsGroup', () => {
             this.mergeCellsNeeded = true;
         });
 
-        dt.on('xhr.dt', () => {
+        dt.on('xhr.dt.rowsGroup', () => {
             this.mergeCellsNeeded = true;
         });
 
@@ -231,7 +231,7 @@ if ($.fn.DataTable) $.fn.DataTable.RowsGroup = RowsGroup;
 /* eslint-enable no-param-reassign */
 
 // Automatic initialisation listener
-$(document).on('init.dt', (e, settings) => {
+$(document).on('init.dt.rowsGroup', (e, settings) => {
     if (e.namespace !== 'dt') {
         return;
     }
