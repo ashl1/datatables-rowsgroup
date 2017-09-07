@@ -1,0 +1,29 @@
+{
+  "name": "datatables-rowsgroup",
+  "version": "2.0.0",
+  "description": "Datatables plugin that groups rows (rowspan)",
+  "main": "dataTables.rowsGroup.js",
+  "scripts": {
+    "test": "eslint *.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashl1/datatables-rowsgroup.git"
+  },
+  "author": "Alexey Shildyakov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashl1/datatables-rowsgroup/issues"
+  },
+  "homepage": "https://github.com/ashl1/datatables-rowsgroup#readme",
+  "dependencies": {
+    "jQuery": "^1.7.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0"
+  }
+}
