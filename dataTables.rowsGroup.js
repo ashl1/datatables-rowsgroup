@@ -260,7 +260,7 @@ $(document).on('init.dt.rowsGroup', (e, settings) => {
 }(
     (typeof require === 'function')
         ? require('jQuery')
-        : window.jQuery,
+        : window.jQuery
 ));
 
 /*
