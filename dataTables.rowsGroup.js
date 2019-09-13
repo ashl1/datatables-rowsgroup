@@ -199,8 +199,18 @@ RowsGroup.prototype = {
 		var newSequenceRow = iStartRow,
 			iRow;
 		for (iRow = iStartRow + 1; iRow <= iFinishRow; ++iRow) {
+			//added to handle complex values (objects, arrays)
+			var curValue = null;
+			var nextValue = null;
+			if (typeof columnValues[iRow] === "object") {
+				curValue = JSON.stringify(columnValues[iRow]);
+				nextValue = JSON.stringify(columnValues[newSequenceRow]);
+			} else { 
+				curValue = columnValues[iRow];
+				nextValue = columnValues[newSequenceRow];
+			}
 			
-			if (columnValues[iRow] === columnValues[newSequenceRow]) {
+			if (curValue === nextValue) {
 				$(columnNodes[iRow]).hide()
 			} else {
 				$(columnNodes[newSequenceRow]).show()
