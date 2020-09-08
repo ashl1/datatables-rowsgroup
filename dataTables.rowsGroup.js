@@ -40,13 +40,13 @@
 
 (function($){
 
-ShowedDataSelectorModifier = {
+var ShowedDataSelectorModifier = {
 	order: 'current',
 	page: 'current',
 	search: 'applied',
 }
 
-GroupedColumnsOrderDir = 'asc';
+var GroupedColumnsOrderDir = 'asc';
 
 
 /*
@@ -190,7 +190,7 @@ RowsGroup.prototype = {
 	_mergeColumn: function(iStartRow, iFinishRow, columnsIndexes)
 	{
 		var columnsIndexesCopy = columnsIndexes.slice()
-		currentColumn = columnsIndexesCopy.shift()
+		var currentColumn = columnsIndexesCopy.shift()
 		currentColumn = this.table.column(currentColumn, ShowedDataSelectorModifier)
 		
 		var columnNodes = currentColumn.nodes()
