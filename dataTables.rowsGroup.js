@@ -40,7 +40,7 @@
 
 (function($){
 
-ShowedDataSelectorModifier = {
+var ShowedDataSelectorModifier = {
 	order: 'current',
 	page: 'current',
 	search: 'applied',
