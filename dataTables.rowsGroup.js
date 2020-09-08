@@ -40,13 +40,13 @@
 
 (function($){
 
-ShowedDataSelectorModifier = {
+var ShowedDataSelectorModifier = {
 	order: 'current',
 	page: 'current',
 	search: 'applied',
 }
 
-GroupedColumnsOrderDir = 'asc';
+var GroupedColumnsOrderDir = 'asc';
 
 
 /*
@@ -251,7 +251,7 @@ $(document).on( 'init.dt', function ( e, settings ) {
 	if ( settings.oInit.rowsGroup ||
 		 $.fn.dataTable.defaults.rowsGroup )
 	{
-		options = settings.oInit.rowsGroup?
+		var options = settings.oInit.rowsGroup?
 			settings.oInit.rowsGroup:
 			$.fn.dataTable.defaults.rowsGroup;
 		var rowsGroup = new RowsGroup( api, options );
