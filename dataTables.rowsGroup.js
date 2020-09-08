@@ -46,7 +46,7 @@ var ShowedDataSelectorModifier = {
 	search: 'applied',
 }
 
-GroupedColumnsOrderDir = 'asc';
+var GroupedColumnsOrderDir = 'asc';
 
 
 /*
