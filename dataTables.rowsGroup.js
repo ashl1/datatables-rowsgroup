@@ -71,7 +71,7 @@ var RowsGroup = function ( dt, columnsForGrouping )
 		}
 	})
 	
-	dt.on('preDraw.dt', function ( e, settings) {
+	dt.on('draw.dt', function ( e, settings) {
 		if (self.mergeCellsNeeded) {
 			self.mergeCellsNeeded = false;
 			self._mergeCells()
