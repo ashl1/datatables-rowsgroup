@@ -40,13 +40,13 @@
 
 (function($){
 
-ShowedDataSelectorModifier = {
+var ShowedDataSelectorModifier = {
 	order: 'current',
 	page: 'current',
 	search: 'applied',
 }
 
-GroupedColumnsOrderDir = 'asc';
+var GroupedColumnsOrderDir = 'asc';
 
 
 /*
@@ -197,24 +197,35 @@ RowsGroup.prototype = {
 		var columnValues = currentColumn.data()
 		
 		var newSequenceRow = iStartRow,
-			iRow;
+			iRow,
+			childRowCount = 0;
+
+		if( this.table.row( iStartRow ).child.isShown() )
+			childRowCount++;
+
 		for (iRow = iStartRow + 1; iRow <= iFinishRow; ++iRow) {
-			
+
+			if( this.table.row( iRow ).child.isShown() )
+				childRowCount++;
+
 			if (columnValues[iRow] === columnValues[newSequenceRow]) {
 				$(columnNodes[iRow]).hide()
 			} else {
+
 				$(columnNodes[newSequenceRow]).show()
-				$(columnNodes[newSequenceRow]).attr('rowspan', (iRow-1) - newSequenceRow + 1)
+				$(columnNodes[newSequenceRow]).attr('rowspan', (iRow-1) - newSequenceRow + 1 + childRowCount)
 				
 				if (columnsIndexesCopy.length > 0)
 					this._mergeColumn(newSequenceRow, (iRow-1), columnsIndexesCopy)
 				
 				newSequenceRow = iRow;
+				childRowCount = 0;
 			}
 			
 		}
+
 		$(columnNodes[newSequenceRow]).show()
-		$(columnNodes[newSequenceRow]).attr('rowspan', (iRow-1)- newSequenceRow + 1)
+		$(columnNodes[newSequenceRow]).attr('rowspan', (iRow-1)- newSequenceRow + 1 + childRowCount )
 		if (columnsIndexesCopy.length > 0)
 			this._mergeColumn(newSequenceRow, (iRow-1), columnsIndexesCopy)
 	},
@@ -251,7 +262,7 @@ $(document).on( 'init.dt', function ( e, settings ) {
 	if ( settings.oInit.rowsGroup ||
 		 $.fn.dataTable.defaults.rowsGroup )
 	{
-		options = settings.oInit.rowsGroup?
+		var options = settings.oInit.rowsGroup?
 			settings.oInit.rowsGroup:
 			$.fn.dataTable.defaults.rowsGroup;
 		var rowsGroup = new RowsGroup( api, options );
